@@ -32,3 +32,7 @@ steps:
     echo "Cache Metadata:" > $(Build.SourcesDirectory)/pipeline_cache/azure_cache.txt
     echo "This is the cache of branch $(Build.SourceBranch), build $(Build.BuildNumber) at time $current_datetime." >> $(Build.SourcesDirectory)/pipeline_cache/azure_cache.txt
   displayName: Write cache metadata
+
+- script: |
+    cat $(Build.SourcesDirectory)/pipeline_cache/azure_cache.txt
+  displayName: Display contents of azure_cache.txt after modify
