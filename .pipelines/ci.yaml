@@ -1,0 +1,27 @@
+trigger: none
+
+pr:
+  branches:
+    include:
+      - develop
+
+pool:
+  name: 'linux_1'
+
+steps:
+- task: Cache@2
+  displayName: Ccache caching
+  inputs:
+    key: 'ccache | "$(Agent.OS)" | $(Build.SourceVersion)'
+    path: $(Pipeline.Workspace)/azure_cache.txt
+    restoreKeys: | 
+      ccache | "$(Agent.OS)"
+
+- script: |
+    cat $(Pipeline.Workspace)/azure_cache.txt
+  displayName: Display contents of azure_cache.txt
+  
+- script: |
+    echo "Cache Metadata:" > $(Pipeline.Workspace)/azure_cache.txt
+    echo "This is the cache of branch $(Build.SourceBranchName), build $(Build.BuildNumber) at time $(Build.QueuedTime)." >> $(Pipeline.Workspace)/azure_cache.txt
+  displayName: Write cache metadata
