@@ -16,12 +16,12 @@ variables:
 
 steps:
 - task: Cache@2
-  displayName: Ccache caching
+  displayName: Azure caching
   inputs:
-    key: 'ccache | "$(Agent.OS)" | $(Build.SourceVersion)'
+    key: 'cache | "$(Agent.OS)" | $(Build.SourceVersion)'
     path: $(Build.SourcesDirectory)/pipeline_cache/
     restoreKeys: | 
-      ccache | "$(Agent.OS)"
+      cache | "$(Agent.OS)"
 
 - script: |
     cat $(Build.SourcesDirectory)/pipeline_cache/azure_cache.txt
